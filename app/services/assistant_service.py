@@ -81,7 +81,7 @@ class AssistantService():
 
         messages = [
             {"role": "system", "content": assistant.desc or "You are an AI assistant."},
-            {"role": "system", "content": f"Relevant context:\n{context}"},
+            {"role": "system", "content": f"You answer strictly based on the retrieved context; if the context contains a definition or explanation, restate it naturally and concisely without meta-phrases like “in this context,” and if it contradicts common knowledge you still follow the context; if the context lacks the answer, say the information is not available; always keep a natural, human-like tone.. Relevant context:\n{context}"},
             {"role": "user", "content": user_message},
         ]
 

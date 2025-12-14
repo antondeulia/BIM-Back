@@ -23,7 +23,7 @@ class PineconeService:
     def upsert_records(self, records):
         self.index.upsert_records(namespace="__default", records=records)
 
-    def search(self, dataset_ids: list[int], query: str, top_k: int = 5):
+    def search(self, dataset_ids: list[int], query: str, top_k: int = 10):
         chunk_texts: list[str] = []
 
         for dataset_id in dataset_ids:
@@ -34,6 +34,11 @@ class PineconeService:
                     "top_k": top_k,
                     "filter": {"dataset_id": dataset_id},
                 }, # type: ignore
+                 rerank={
+                    "model": "bge-reranker-v2-m3",
+                    "top_n": 5,
+                    "rank_fields": ["chunk_text"]
+                }  # type: ignore
             )
             print(res)
 
